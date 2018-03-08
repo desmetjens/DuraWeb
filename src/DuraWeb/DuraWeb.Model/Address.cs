@@ -8,5 +8,6 @@
     public string Bus { get; set; }
     public string PostalCode { get; set; }
     public string City { get; set; }
+    public int CustomerId { get; set; }
   }
 }

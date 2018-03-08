@@ -13,8 +13,9 @@ namespace DuraWeb.Model
     public byte[] File { get; set; }
     public bool Paid { get; set; }
     public VatRegime VatRegime { get; set; }
+    public int CustomerId { get; set; }
 
-    public IEnumerable<InvoiceItem> Items { get; set; }
+    public virtual ICollection<InvoiceItem> Items { get; set; }
 
   }
 }
