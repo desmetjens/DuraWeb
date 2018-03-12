@@ -14,6 +14,7 @@ namespace DuraWeb.Model
     public bool Paid { get; set; }
     public VatRegime VatRegime { get; set; }
     public int CustomerId { get; set; }
+    public Customer Customer { get; set; }
 
     public virtual ICollection<InvoiceItem> Items { get; set; }
 

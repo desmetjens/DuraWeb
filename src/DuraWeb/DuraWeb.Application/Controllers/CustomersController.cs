@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using DuraWeb.Application.Model;
-using DuraWeb.Application.Services;
+using DuraWeb.EF.Repositories;
+using DuraWeb.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DuraWeb.Application.Controllers
@@ -9,21 +11,34 @@ namespace DuraWeb.Application.Controllers
   [Route("api/customers")]
   public class CustomersController : Controller
   {
-    private readonly ICustomerService _service;
+    private readonly IAsyncRepository<Customer> _repository;
 
-    public CustomersController(ICustomerService service)
+    public CustomersController(IAsyncRepository<Customer> repository)
     {
-      _service = service;
+      _repository = repository;
     }
-
-    [Route("createupdate")]
+    
     [HttpPost]
-    public async Task<IActionResult> CreateOrUpdate(CustomerModel customer)
+    public async Task<IActionResult> Create(CustomerModel customer)
     {
-      var customerModel = await _service.CreateOrUpdateAsync(customer);
-      return Ok(customerModel);
+      var model = Mapper.Map<Customer>(customer);
+      var changesMade = await _repository.AddAsync(model);
+      return Ok(changesMade);
     }
-
-
+    
+    [HttpPost]
+    public async Task<IActionResult> Update(CustomerModel customer)
+    {
+      var model = Mapper.Map<Customer>(customer);
+      var changesMade = await _repository.UpdateAsync(customer.Id, model);
+      return Ok(changesMade);
+    }
+    
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int id)
+    {
+      var changesMade = await _repository.DeleteAsync(id);
+      return Ok(changesMade);
+    }
   }
 }

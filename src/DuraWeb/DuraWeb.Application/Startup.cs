@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using DuraWeb.Application.Mapping;
-using DuraWeb.Application.Services;
 using DuraWeb.EF;
+using DuraWeb.EF.Repositories;
+using DuraWeb.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,8 @@ namespace DuraWeb.Application
     {
       services.AddMvc();
 
-      services.AddTransient<ICustomerService, CustomerService>();
+      services.AddTransient<IAsyncRepository<Customer>, CustomerRepository>();
+      services.AddTransient<IRepository<Customer>, CustomerRepository>();
 
       var connection = Configuration.GetConnectionString("DuraWebDatabase");
       services.AddDbContext<DuraContext>(options => options.UseSqlServer(connection));
@@ -44,7 +46,8 @@ namespace DuraWeb.Application
         app.UseDeveloperExceptionPage();
       }
 
-      Mapper.Initialize(cfg => {
+      Mapper.Initialize(cfg =>
+      {
         cfg.AddProfile<DuraProfile>();
       });
 
