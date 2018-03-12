@@ -24,6 +24,11 @@ namespace DuraWeb.EF
         .HasMany(a => a.Invoices)
         .WithOne(b => b.Customer)
         .HasForeignKey(b => b.CustomerId);
+
+      modelBuilder.Entity<Invoice>()
+        .HasMany(a => a.Items)
+        .WithOne(b => b.Invoice)
+        .HasForeignKey(b => b.InvoiceId);
     }
   }
 }

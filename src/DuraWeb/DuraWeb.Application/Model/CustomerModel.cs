@@ -5,6 +5,7 @@
     public int Id { get; set; }
     public string Firstname { get; set; }
     public string Lastname { get; set; }
+    public string FullName { get; set; }
     public string Telephone { get; set; }
     public string VatNumber { get; set; }
     public int Title { get; set; }

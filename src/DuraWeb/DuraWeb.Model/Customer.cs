@@ -12,5 +12,10 @@ namespace DuraWeb.Model
     public Title Title { get; set; }
     public Address Address { get; set; }
     public virtual ICollection<Invoice> Invoices { get; set; }
+
+    public override string ToString()
+    {
+      return $"{Title.Description()}{Lastname.ToUpper()} {Firstname}";
+    }
   }
 }

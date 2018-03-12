@@ -25,8 +25,8 @@ namespace DuraWeb.Application
     {
       services.AddMvc();
 
-      services.AddTransient<IAsyncRepository<Customer>, CustomerRepository>();
-      services.AddTransient<IRepository<Customer>, CustomerRepository>();
+      services.AddTransient<ICustomerRepository, CustomerRepository>();
+      services.AddTransient<IInvoiceRepository, InvoiceRepository>();
 
       var connection = Configuration.GetConnectionString("DuraWebDatabase");
       services.AddDbContext<DuraContext>(options => options.UseSqlServer(connection));

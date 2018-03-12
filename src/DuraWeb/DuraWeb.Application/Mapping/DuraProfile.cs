@@ -8,12 +8,18 @@ namespace DuraWeb.Application.Mapping
   {
     public DuraProfile()
     {
-      CreateMap<CustomerModel, Customer>()
-        .ForMember(x => x.Title, opt => opt.MapFrom(s => (Title)s.Title));
-      CreateMap<Customer, CustomerModel>();
+      CreateMap<CustomerModel, Customer>();
+      CreateMap<Customer, CustomerModel>()
+        .ForMember(x => x.FullName, opt => opt.MapFrom(s => s.ToString()));
 
       CreateMap<AddressModel, Address>();
       CreateMap<Address, AddressModel>();
+
+      CreateMap<Invoice, InvoiceModel>();
+      CreateMap<InvoiceModel, Invoice>();
+
+      CreateMap<InvoiceItem, InvoiceItemModel>();
+      CreateMap<InvoiceItemModel, InvoiceItem>();
     }
   }
 }

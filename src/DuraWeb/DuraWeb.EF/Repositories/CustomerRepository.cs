@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DuraWeb.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuraWeb.EF.Repositories
 {
-  public class CustomerRepository : IRepository<Customer>, IAsyncRepository<Customer>
+  public class CustomerRepository : ICustomerRepository
   {
     private readonly DuraContext _context;
 
@@ -15,46 +17,34 @@ namespace DuraWeb.EF.Repositories
       _context = context;
     }
 
-    public Customer Get(int key)
+    public async Task<Customer> FindAsync(Expression<Func<Customer, bool>> predicate)
     {
-      return _context.Customers
+      return await _context.Customers
         .Include(x => x.Address)
         .Include(x => x.Invoices)
         .ThenInclude(x => x.Items)
-        .FirstOrDefault(x => x.Id == key);
+        .FirstOrDefaultAsync(predicate);
     }
 
-    public IEnumerable<Customer> GetAll()
+    public async Task<IEnumerable<Customer>> WhereAsync(Expression<Func<Customer, bool>> predicate)
     {
-      return _context.Customers
+      return await _context.Customers
         .Include(x => x.Address)
         .Include(x => x.Invoices)
         .ThenInclude(x => x.Items)
-        .ToList();
+        .Where(predicate)
+        .ToListAsync();
     }
 
-    public int Add(Customer entity)
+    public async Task<IEnumerable<Customer>> SearchAsync(string criteria, int pagesize, int page)
     {
-      _context.Add(entity);
-      return _context.SaveChanges();
-    }
+      var customers = await WhereAsync(x => $"{x.Lastname} {x.Firstname}".Contains(criteria)
+                                             || $"{x.Firstname} {x.Lastname}".Contains(criteria)
+                                             || x.Telephone.Contains(criteria)
+                                             || x.VatNumber.Contains(criteria)
+                                            || $"{x.Address.ToString()}".Contains(criteria));
 
-    public int Update(int id, Customer entity)
-    {
-      var original = _context.Customers.Find(id);
-      if (original == null) return 0;
-
-      _context.Entry(original).CurrentValues.SetValues(entity);
-      return _context.SaveChanges();
-    }
-
-    public int Delete(int id)
-    {
-      var customer = _context.Customers.Find(id);
-      if (customer == null) return 0;
-
-      _context.Customers.Remove(customer);
-      return _context.SaveChanges();
+      return customers.Skip(pagesize * page).Take(pagesize);
     }
 
     public async Task<Customer> GetAsync(int key)
@@ -87,6 +77,11 @@ namespace DuraWeb.EF.Repositories
       if (original == null) return 0;
 
       _context.Entry(original).CurrentValues.SetValues(entity);
+      original.Address.Bus = entity.Address.Bus;
+      original.Address.Street = entity.Address.Street;
+      original.Address.PostalCode = entity.Address.PostalCode;
+      original.Address.Number = entity.Address.Number;
+
       return await _context.SaveChangesAsync();
     }
 

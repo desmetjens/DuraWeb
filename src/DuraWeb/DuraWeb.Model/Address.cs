@@ -10,5 +10,10 @@
     public string City { get; set; }
     public int CustomerId { get; set; }
     public Customer Customer { get; set; }
+
+    public override string ToString()
+    {
+      return !string.IsNullOrEmpty(Bus) ? $"{Street} {Number} {Bus} {PostalCode} {City}" : $"{Street} {Number} {PostalCode} {City}";
+    }
   }
 }
