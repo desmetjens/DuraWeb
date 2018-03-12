@@ -8,8 +8,18 @@ namespace DuraWeb.Application.Model
     public int Id { get; set; }
     public string Remarks { get; set; }
     public int InvoiceNumber { get; set; }
-    public DateTime Date { get; set; }
-    public DateTime ExpiryDate { get; set; }
+
+    private DateTime _date;
+    public DateTime Date
+    {
+      get => _date;
+      set
+      {
+        _date = value;
+        ExpiryDate = Date.AddMonths(1);
+      }
+    }
+    public DateTime ExpiryDate { get; private set; }
     public bool Paid { get; set; }
     public int VatRegime { get; set; }
     public int CustomerId { get; set; }

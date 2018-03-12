@@ -34,8 +34,9 @@ namespace DuraWeb.EF.Repositories
     public async Task<int> AddAsync(Invoice entity)
     {
       var customer = await _context.Customers.FindAsync(entity.CustomerId);
+      entity.Customer = customer;
       customer.Invoices.Add(entity);
-      
+
       return await _context.SaveChangesAsync();
     }
 

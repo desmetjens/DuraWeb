@@ -5,13 +5,13 @@ namespace DuraWeb.Model
   public enum Title
   {
     [Description("")]
-    Geen = -1,
+    None = -1,
     [Description("Dhr. ")]
-    Dhr = 0,
+    Mr = 0,
     [Description("Mevr. ")]
-    Mvr = 1,
+    Mdm = 1,
     [Description("Dhr. & Mevr. ")]
-    DhrMvr = 2,
+    MrMdm = 2,
     [Description("BVBA ")]
     Bvba = 3,
     [Description("nv ")]
