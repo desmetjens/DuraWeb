@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuraWeb.Application", "DuraWeb.Application\DuraWeb.Application.csproj", "{54F0E7B7-8258-47AD-B282-AC1E0CE8C5F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuraWeb.Application", "DuraWeb.Application\DuraWeb.Application.csproj", "{54F0E7B7-8258-47AD-B282-AC1E0CE8C5F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuraWeb.Model", "DuraWeb.Model\DuraWeb.Model.csproj", "{72DF66A4-2035-4BE9-AB6F-41455E836A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuraWeb.Model", "DuraWeb.Model\DuraWeb.Model.csproj", "{72DF66A4-2035-4BE9-AB6F-41455E836A23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuraWeb.EF", "DuraWeb.EF\DuraWeb.EF.csproj", "{4BE976E9-AC68-438C-97E0-1A7BF9422CA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuraWeb.EF", "DuraWeb.EF\DuraWeb.EF.csproj", "{4BE976E9-AC68-438C-97E0-1A7BF9422CA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuraWeb.Tests", "DuraWeb.Tests\DuraWeb.Tests.csproj", "{D48C3C32-3ABD-47B4-A0F7-796EE4A9539A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{4BE976E9-AC68-438C-97E0-1A7BF9422CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BE976E9-AC68-438C-97E0-1A7BF9422CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BE976E9-AC68-438C-97E0-1A7BF9422CA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D48C3C32-3ABD-47B4-A0F7-796EE4A9539A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D48C3C32-3ABD-47B4-A0F7-796EE4A9539A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D48C3C32-3ABD-47B4-A0F7-796EE4A9539A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D48C3C32-3ABD-47B4-A0F7-796EE4A9539A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

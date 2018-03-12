@@ -1,4 +1,7 @@
-﻿using DuraWeb.EF;
+﻿using AutoMapper;
+using DuraWeb.Application.Mapping;
+using DuraWeb.Application.Services;
+using DuraWeb.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +24,8 @@ namespace DuraWeb.Application
     {
       services.AddMvc();
 
+      services.AddTransient<ICustomerService, CustomerService>();
+
       var connection = Configuration.GetConnectionString("DuraWebDatabase");
       services.AddDbContext<DuraContext>(options => options.UseSqlServer(connection));
     }
@@ -28,10 +33,20 @@ namespace DuraWeb.Application
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
+      using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+      {
+        var context = serviceScope.ServiceProvider.GetRequiredService<DuraContext>();
+        context.Database.Migrate();
+      }
+
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
       }
+
+      Mapper.Initialize(cfg => {
+        cfg.AddProfile<DuraProfile>();
+      });
 
       app.UseMvc();
     }
